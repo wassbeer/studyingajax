@@ -16,34 +16,21 @@ html
 				script.
 					$(document).ready(function(){
 
-					// function delay is declared	
 					var delay = (function(){
-					// which declares a variable timer and asigns it the value of 0
 					var timer = 0;
-					// 
+ 
 					return function(callback, ms){
-					clearTimeout (timer);
-					timer = setTimeout(callback, ms);
-					};
+						clearTimeout (timer);
+						timer = setTimeout(callback, ms);
+						};
 					})();
 
-
 					$("#type").keyup(function(){
-					delay(function(){
-					var input = $("#type").val();
-					$.post("/ajax_search", {input: input}, function(data){
-					$("#bottomPanel").html(data);
+						delay(function(){
+							var input = $("#type").val();
+							$.post("/ajax_search", {input: input}, function(data){
+								$("#bottomPanel").html(data);
+							});
+						}, 300);
+						});
 					});
-					}, 300);
-
-						  });
-						  });
-							
-
-//- 							$('input').keyup(function() {
-//-     delay(function(){
-//-       alert('Time elapsed!');
-//-     }, 1000 );
-//- });
-
-		

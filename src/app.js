@@ -93,10 +93,6 @@ res.render('users', {all: listUsers});
 });
 
 app.post("/ajax_search", function(req, res){
-	// console.log("receiving post request:")
-	// console.log(req.body);
-	// console.log(req.body.input);
-	// console.log(req.body.input.toLowerCase().indexOf("t"));
 
 	fs.readFile('./users.json', 'utf8', function(err, data){
 		if(err){
@@ -104,43 +100,30 @@ app.post("/ajax_search", function(req, res){
 		}
 		var parsedJson = JSON.parse(data);
 		var matching_users_ajax = [];
-		for(var i = 0; i < parsedJson.length; i++){
-			// find a way that only the amount the first letters
-
-
+			
 			for(var i = 0; i < parsedJson.length; i++){
 			var partialFirstName = "";
 			var partialLastName = "";
-			
-				// find a way that only the amount the first letters are evaluated
-				// console.log(parsedJson[i].firstname);
+				
 				for(var j = 0; j < req.body.input.length; j++){
 					var partialFirstName = partialFirstName + parsedJson[i].firstname[j];
 					var partialLastName = partialLastName + parsedJson[i].lastname[j];
 				}
 
-				// console.log(partialFirstName);
-				// console.log(partialLastName);
-// }
-
 			if(req.body.input === ""){
-				matching_users_ajax = "";
+			matching_users_ajax = "";
 			}
 
-			else if (partialFirstName.toLowerCase().indexOf(req.body.input.toLowerCase()) !== -1 
-				|| partialLastName.toLowerCase().indexOf(req.body.input.toLowerCase()) !== -1
-				){
-				matching_users_ajax.push(parsedJson[i].firstname + " " + parsedJson[i].lastname + " ")};
-
-			
-
-};};
-
+			else if (partialFirstName.toLowerCase().indexOf(req.body.input.toLowerCase()) !== -1 || partialLastName.toLowerCase().indexOf(req.body.input.toLowerCase()) !== -1
+			){
+			matching_users_ajax.push(parsedJson[i].firstname + " " + parsedJson[i].lastname + " ")
+				};
+			};
 
 	res.send(matching_users_ajax);
+	});
+});
 
-});
-});
 // Listen
 
 app.listen(3000, function(){
