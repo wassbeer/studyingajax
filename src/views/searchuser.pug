@@ -1,0 +1,49 @@
+html
+	head
+		script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+		link(rel='stylesheet', href='css/main.css')
+		link(href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet")
+		body
+			h1#header Search users
+				form(action="/search_user" method="post")
+					input#type(type="text" name="search_bar")
+					br
+					br
+					input(type="submit" value="Search users!" id="btn")
+				div
+					ul#bottomPanel
+				
+				script.
+					$(document).ready(function(){
+
+					// function delay is declared	
+					var delay = (function(){
+					// which declares a variable timer and asigns it the value of 0
+					var timer = 0;
+					// 
+					return function(callback, ms){
+					clearTimeout (timer);
+					timer = setTimeout(callback, ms);
+					};
+					})();
+
+
+					$("#type").keyup(function(){
+					delay(function(){
+					var input = $("#type").val();
+					$.post("/ajax_search", {input: input}, function(data){
+					$("#bottomPanel").html(data);
+					});
+					}, 300);
+
+						  });
+						  });
+							
+
+//- 							$('input').keyup(function() {
+//-     delay(function(){
+//-       alert('Time elapsed!');
+//-     }, 1000 );
+//- });
+
+		
